@@ -6,6 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// VERSION 2.0 - DEPLOIEMENT FINAL
 app.get('/', (req, res) => {
   res.json({ message: 'API Etudiant - operationnelle' });
 });
@@ -15,7 +16,7 @@ app.get('/api/etudiants', (req, res) => {
 });
 
 app.post('/api/etudiants', (req, res) => {
-  res.json({ success: true, message: 'Etudiant ajoute' });
+  res.json({ success: true, message: 'Etudiant ajoute avec succes' });
 });
 
 const PORT = process.env.PORT || 3000;
