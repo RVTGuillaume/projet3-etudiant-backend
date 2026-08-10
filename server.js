@@ -2,12 +2,13 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 
 console.log('=== DEBUT SERVER ===');
 
-// Importer les routes avec logs
+// Importer les routes avec chemin absolu
 console.log('Importation des routes...');
-const etudiantRoutes = require('./routes/etudiantRoutes');
+const etudiantRoutes = require(path.join(__dirname, 'routes', 'etudiantRoutes'));
 console.log('Routes importees avec succes');
 
 const app = express();
@@ -45,6 +46,13 @@ app.get('/', (req, res) => {
 
 app.get('/test', (req, res) => {
   res.json({ message: 'Route test fonctionne' });
+});
+
+console.log('Liste des routes enregistrees:');
+app._router.stack.forEach((layer) => {
+  if (layer.route) {
+    console.log(layer.route.path);
+  }
 });
 
 const PORT = process.env.PORT || 3000;
