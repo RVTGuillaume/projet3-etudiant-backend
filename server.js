@@ -3,12 +3,12 @@ const http = require('http');
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'application/json' });
   
-  // Route /api/etudiants
-  if (req.url === '/api/etudiants') {
+  // Route /etudiants (sans /api)
+  if (req.url === '/etudiants') {
     res.end(JSON.stringify({ 
       success: true, 
       data: [],
-      message: 'Route API fonctionne !'
+      message: 'Route /etudiants fonctionne !'
     }));
   } else {
     // Route racine
