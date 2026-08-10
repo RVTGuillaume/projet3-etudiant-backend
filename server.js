@@ -48,13 +48,6 @@ app.get('/test', (req, res) => {
   res.json({ message: 'Route test fonctionne' });
 });
 
-console.log('Liste des routes enregistrees:');
-app._router.stack.forEach((layer) => {
-  if (layer.route) {
-    console.log(layer.route.path);
-  }
-});
-
 const PORT = process.env.PORT || 3000;
 
 console.log('Connexion a MongoDB...');
