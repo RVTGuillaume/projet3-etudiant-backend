@@ -1,53 +1,24 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Route racine
 app.get('/', (req, res) => {
   res.json({ message: 'API Etudiant - operationnelle' });
 });
 
-// Routes API
-app.get('/api/etudiants', async (req, res) => {
-  try {
-    res.json({ success: true, data: [] });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+app.get('/api/etudiants', (req, res) => {
+  res.json({ success: true, data: [] });
 });
 
-app.post('/api/etudiants', async (req, res) => {
-  try {
-    res.json({ success: true, message: 'Etudiant ajoute avec succes' });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-app.put('/api/etudiants/:id', async (req, res) => {
-  try {
-    res.json({ success: true, message: 'Etudiant modifie avec succes' });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-app.delete('/api/etudiants/:id', async (req, res) => {
-  try {
-    res.json({ success: true, message: 'Etudiant supprime avec succes' });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+app.post('/api/etudiants', (req, res) => {
+  res.json({ success: true, message: 'Etudiant ajoute avec succes' });
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log('Serveur demarre sur le port ' + PORT);
+  console.log('Serveur Express demarre sur le port ' + PORT);
 });
