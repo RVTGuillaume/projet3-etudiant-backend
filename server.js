@@ -2,20 +2,34 @@ const http = require('http');
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-  
-  // Route /etudiants (sans /api)
-  if (req.url === '/etudiants') {
-    res.end(JSON.stringify({ 
-      success: true, 
-      data: [],
-      message: 'Route /etudiants fonctionne !'
+
+  // Gestion des routes
+  if (req.url === '/') {
+    res.end(JSON.stringify({
+      message: 'API Etudiant - operationnelle',
+      routes: ['/api/etudiants', '/api/etudiants/:id']
     }));
-  } else {
-    // Route racine
-    res.end(JSON.stringify({ 
-      message: 'Test serveur HTTP fonctionne !',
-      path: req.url,
-      method: req.method
+  }
+  else if (req.url === '/api/etudiants') {
+    res.end(JSON.stringify({
+      success: true,
+      data: [],
+      message: 'Route /api/etudiants fonctionne !'
+    }));
+  }
+  else if (req.url.startsWith('/api/etudiants/')) {
+    const id = req.url.split('/').pop();
+    res.end(JSON.stringify({
+      success: true,
+      id: id,
+      message: 'Route /api/etudiants/' + id + ' fonctionne !'
+    }));
+  }
+  else {
+    res.statusCode = 404;
+    res.end(JSON.stringify({
+      error: 'Route non trouv?e',
+      path: req.url
     }));
   }
 });
