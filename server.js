@@ -2,11 +2,17 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+
+console.log('=== DEBUT SERVER ===');
+
+// Importer les routes avec logs
+console.log('Importation des routes...');
 const etudiantRoutes = require('./routes/etudiantRoutes');
+console.log('Routes importees avec succes');
 
 const app = express();
 
-// Configuration CORS complete
+console.log('Configuration CORS...');
 const corsOptions = {
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -16,8 +22,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// Middleware supplementaire pour les headers CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -31,25 +35,21 @@ app.use((req, res, next) => {
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Routes
+console.log('Enregistrement des routes...');
 app.use('/api/etudiants', etudiantRoutes);
+console.log('Routes enregistrees');
 
-// Route de test
 app.get('/', (req, res) => {
   res.json({ message: 'API Etudiant - operationnelle' });
 });
 
-// Route pour verifier la sante de l'API
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
-  });
+app.get('/test', (req, res) => {
+  res.json({ message: 'Route test fonctionne' });
 });
 
 const PORT = process.env.PORT || 3000;
 
+console.log('Connexion a MongoDB...');
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
