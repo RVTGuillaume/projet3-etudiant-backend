@@ -1,19 +1,38 @@
 ﻿const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
+
 const app = express();
 
-// Route de base
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Route racine
 app.get('/', (req, res) => {
   res.json({ message: 'API Etudiant - operationnelle' });
 });
 
-// Route de test
-app.get('/test', (req, res) => {
-  res.json({ message: 'Route test fonctionne !' });
+// Routes API directement dans le fichier principal
+// Route pour récupérer tous les étudiants
+app.get('/api/etudiants', async (req, res) => {
+  try {
+    // Ici vous pouvez ajouter votre logique MongoDB plus tard
+    res.json({ success: true, data: [] });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
-// Route API étudiants
-app.get('/api/etudiants', (req, res) => {
-  res.json({ success: true, data: [] });
+// Route pour créer un étudiant
+app.post('/api/etudiants', async (req, res) => {
+  try {
+    // Ici vous pouvez ajouter votre logique d'ajout plus tard
+    res.json({ success: true, message: 'Etudiant ajoute avec succes' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
