@@ -6,7 +6,7 @@ const etudiantRoutes = require('./routes/etudiantRoutes');
 
 const app = express();
 
-// Configuration CORS complete
+// ✅ Configuration CORS complète
 const corsOptions = {
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -17,7 +17,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Middleware supplementaire pour les headers CORS
+// ✅ Middleware supplémentaire pour les headers CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'API Etudiant - operationnelle' });
 });
 
-// Route pour verifier la sante de l'API
+// Route pour vérifier la santé de l'API
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -53,12 +53,13 @@ const PORT = process.env.PORT || 3000;
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log('Connecte a MongoDB Atlas');
+    console.log('✅ Connecté à MongoDB Atlas');
     app.listen(PORT, '0.0.0.0', () => {
-      console.log('Serveur demarre sur le port ' + PORT);
+      console.log(🚀 Serveur démarré sur le port );
+      console.log(📍 URL: http://localhost:);
     });
   })
   .catch((err) => {
-    console.error('Erreur de connexion MongoDB :', err.message);
+    console.error('❌ Erreur de connexion MongoDB :', err.message);
     process.exit(1);
   });
